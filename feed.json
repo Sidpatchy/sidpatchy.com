@@ -7,6 +7,14 @@
 	"items": [
 		
 			{
+				"id": "http://sidpatchy.micro.blog/2024/03/07/110017.html",
+				
+				"content_html": "<!-- raw HTML omitted -->\n",
+				"content_text": "\n\n<img src=\"uploads/2024/b9e21c417f.jpg\" width=\"600\" height=\"337\" alt=\"\">\n",
+				"date_published": "2024-03-07T11:00:17-05:00",
+				"url": "https://www.sidpatchy.com/2024/03/07/110017.html"
+			},
+			{
 				"id": "http://sidpatchy.micro.blog/2024/02/13/street-signs-in.html",
 				
 				"content_html": "<p>Street signs in the middle of nowhere can be interesting subjects.</p>\n<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>\n",
@@ -42,7 +50,7 @@
 				"id": "http://sidpatchy.micro.blog/2023/12/24/a-photo-i.html",
 				
 				"content_html": "<p>A photo I took during a trip to Wyoming - dated 2023-06-15</p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "A photo I took during a trip to Wyoming - dated 2023-06-15\n\n<img src=\"uploads/2023/ced267a089.jpg\" width=\"600\" height=\"400\" alt=\"\">\n",
+				"content_text": "A photo I took during a trip to Wyoming - dated 2023-06-15\n\n<img src=\"https://cdn.uploads.micro.blog/101940/2023/ced267a089.jpg\" width=\"600\" height=\"400\" alt=\"\">\n",
 				"date_published": "2023-12-24T21:51:50-05:00",
 				"url": "https://www.sidpatchy.com/2023/12/24/a-photo-i.html"
 			},
@@ -50,7 +58,7 @@
 				"id": "http://sidpatchy.micro.blog/2023/12/24/214933.html",
 				
 				"content_html": "<!-- raw HTML omitted -->\n",
-				"content_text": "\n\n<img src=\"uploads/2023/638848c9d7.jpg\" width=\"600\" height=\"450\" alt=\"\">\n",
+				"content_text": "\n\n<img src=\"https://cdn.uploads.micro.blog/101940/2023/638848c9d7.jpg\" width=\"600\" height=\"450\" alt=\"\">\n",
 				"date_published": "2023-12-24T21:49:33-05:00",
 				"url": "https://www.sidpatchy.com/2023/12/24/214933.html"
 			},
@@ -58,7 +66,7 @@
 				"id": "http://sidpatchy.micro.blog/2023/09/18/093949.html",
 				
 				"content_html": "<!-- raw HTML omitted -->\n",
-				"content_text": "\n\n<img src=\"uploads/2023/351d8a4741.jpg\" width=\"600\" height=\"451\" alt=\"\">\n",
+				"content_text": "\n\n<img src=\"https://cdn.uploads.micro.blog/101940/2023/351d8a4741.jpg\" width=\"600\" height=\"451\" alt=\"\">\n",
 				"date_published": "2023-09-18T09:39:49-05:00",
 				"url": "https://www.sidpatchy.com/2023/09/18/093949.html"
 			},
@@ -66,7 +74,7 @@
 				"id": "http://sidpatchy.micro.blog/2023/09/05/looking-back-on.html",
 				
 				"content_html": "<p>Looking back on my trip to Wyoming last November, I have no regrets as to when I went.</p>\n<p>When I stopped at Devil&rsquo;s Tower, I only saw two people on the trail, which made it feel really cozy.</p>\n<p>It helped me appreciate and take in the environment, and made it that much more special for me.</p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "Looking back on my trip to Wyoming last November, I have no regrets as to when I went.\n\nWhen I stopped at Devil's Tower, I only saw two people on the trail, which made it feel really cozy.\n\nIt helped me appreciate and take in the environment, and made it that much more special for me.\n\n<img src=\"uploads/2023/5601072fd3.jpg\" width=\"600\" height=\"451\" alt=\"\">\n",
+				"content_text": "Looking back on my trip to Wyoming last November, I have no regrets as to when I went.\n\nWhen I stopped at Devil's Tower, I only saw two people on the trail, which made it feel really cozy.\n\nIt helped me appreciate and take in the environment, and made it that much more special for me.\n\n<img src=\"https://cdn.uploads.micro.blog/101940/2023/5601072fd3.jpg\" width=\"600\" height=\"451\" alt=\"\">\n",
 				"date_published": "2023-09-05T15:28:03-05:00",
 				"url": "https://www.sidpatchy.com/2023/09/05/looking-back-on.html"
 			},
@@ -74,7 +82,7 @@
 				"id": "http://sidpatchy.micro.blog/2023/09/03/193550.html",
 				
 				"content_html": "<!-- raw HTML omitted -->\n",
-				"content_text": "\n\n<img src=\"uploads/2023/8e877f1194.jpg\" width=\"451\" height=\"600\" alt=\"\">\n",
+				"content_text": "\n\n<img src=\"https://cdn.uploads.micro.blog/101940/2023/8e877f1194.jpg\" width=\"451\" height=\"600\" alt=\"\">\n",
 				"date_published": "2023-09-03T19:35:50-05:00",
 				"url": "https://www.sidpatchy.com/2023/09/03/193550.html"
 			},
@@ -82,7 +90,7 @@
 				"id": "http://sidpatchy.micro.blog/2023/08/11/161317.html",
 				
 				"content_html": "<!-- raw HTML omitted -->\n",
-				"content_text": "\n\n<img src=\"uploads/2023/image.jpg\" width=\"600\" height=\"400\" alt=\"\">\n",
+				"content_text": "\n\n<img src=\"https://cdn.uploads.micro.blog/101940/2023/image.jpg\" width=\"600\" height=\"400\" alt=\"\">\n",
 				"date_published": "2023-08-11T16:13:17-05:00",
 				"url": "https://www.sidpatchy.com/2023/08/11/161317.html"
 			},
@@ -98,7 +106,7 @@
 				"id": "http://sidpatchy.micro.blog/2023/06/04/the-mighty-mississippi.html",
 				
 				"content_html": "<p>The mighty Mississippi, bent to the whims of mankind.</p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "The mighty Mississippi, bent to the whims of mankind.\n\n<img src=\"uploads/2023/887551cafb.jpg\" width=\"600\" height=\"451\" alt=\"\">\n",
+				"content_text": "The mighty Mississippi, bent to the whims of mankind.\n\n<img src=\"https://cdn.uploads.micro.blog/101940/2023/887551cafb.jpg\" width=\"600\" height=\"451\" alt=\"\">\n",
 				"date_published": "2023-06-04T08:44:43-05:00",
 				"url": "https://www.sidpatchy.com/2023/06/04/the-mighty-mississippi.html"
 			},
@@ -106,7 +114,7 @@
 				"id": "http://sidpatchy.micro.blog/2023/04/27/found-a-new.html",
 				
 				"content_html": "<p>Found a new (to me) park today. It was a very interesting, albeit windy, hike.</p>\n<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>\n",
-				"content_text": "Found a new (to me) park today. It was a very interesting, albeit windy, hike.\n\n<img src=\"uploads/2023/607bd93eb5.jpg\" width=\"600\" height=\"451\" alt=\"\"><img src=\"uploads/2023/f5263f895c.jpg\" width=\"451\" height=\"600\" alt=\"\">\n",
+				"content_text": "Found a new (to me) park today. It was a very interesting, albeit windy, hike.\n\n<img src=\"https://cdn.uploads.micro.blog/101940/2023/607bd93eb5.jpg\" width=\"600\" height=\"451\" alt=\"\"><img src=\"https://cdn.uploads.micro.blog/101940/2023/f5263f895c.jpg\" width=\"451\" height=\"600\" alt=\"\">\n",
 				"date_published": "2023-04-27T23:12:16-05:00",
 				"url": "https://www.sidpatchy.com/2023/04/27/found-a-new.html"
 			},
@@ -138,7 +146,7 @@
 				"id": "http://sidpatchy.micro.blog/2023/03/17/i-love-this.html",
 				
 				"content_html": "<p>I <em>love</em> this lens. Shot on Sony a6000 using a Canon 50mm f/1.4 lens I found on eBay from the 70s.</p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "I *love* this lens. Shot on Sony a6000 using a Canon 50mm f/1.4 lens I found on eBay from the 70s.\n\n<img src=\"uploads/2023/59e63774a8.jpg\" width=\"600\" height=\"400\" alt=\"Kitty\">\n",
+				"content_text": "I *love* this lens. Shot on Sony a6000 using a Canon 50mm f/1.4 lens I found on eBay from the 70s.\n\n<img src=\"https://cdn.uploads.micro.blog/101940/2023/59e63774a8.jpg\" width=\"600\" height=\"400\" alt=\"Kitty\">\n",
 				"date_published": "2023-03-17T06:49:27-05:00",
 				"url": "https://www.sidpatchy.com/2023/03/17/i-love-this.html"
 			},
@@ -146,7 +154,7 @@
 				"id": "http://sidpatchy.micro.blog/2023/03/05/all-your-spring.html",
 				
 				"content_html": "<p>All the posts I&rsquo;m seeing about spring finally being here are making me really envious&hellip;</p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "All the posts I'm seeing about spring finally being here are making me really envious...\n\n<img src=\"uploads/2023/257f3ae0e7.jpg\" width=\"451\" height=\"600\" alt=\"\">\n",
+				"content_text": "All the posts I'm seeing about spring finally being here are making me really envious...\n\n<img src=\"https://cdn.uploads.micro.blog/101940/2023/257f3ae0e7.jpg\" width=\"451\" height=\"600\" alt=\"\">\n",
 				"date_published": "2023-03-05T21:50:09-05:00",
 				"url": "https://www.sidpatchy.com/2023/03/05/all-your-spring.html"
 			},
@@ -162,7 +170,7 @@
 				"id": "http://sidpatchy.micro.blog/2023/03/03/solitude-is-a.html",
 				
 				"content_html": "<p>Solitude is a late morning cup of tea.</p>\n<!-- raw HTML omitted -->\n",
-				"content_text": "Solitude is a late morning cup of tea.\n\n<img src=\"uploads/2023/6fe4827038.jpg\" width=\"451\" height=\"600\" alt=\"\">\n",
+				"content_text": "Solitude is a late morning cup of tea.\n\n<img src=\"https://cdn.uploads.micro.blog/101940/2023/6fe4827038.jpg\" width=\"451\" height=\"600\" alt=\"\">\n",
 				"date_published": "2023-03-03T12:02:56-05:00",
 				"url": "https://www.sidpatchy.com/2023/03/03/solitude-is-a.html"
 			},
@@ -178,7 +186,7 @@
 				"id": "http://sidpatchy.micro.blog/2023/03/02/shot-on-fujifilm.html",
 				
 				"content_html": "<p>Shot on Fujifilm Superia 400 using my Canon AV-1 with a 50mm f/1.4 lens.</p>\n<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>\n",
-				"content_text": "Shot on Fujifilm Superia 400 using my Canon AV-1 with a 50mm f/1.4 lens.\n\n<img src=\"uploads/2023/f12aeba5d5.jpg\" width=\"397\" height=\"600\" alt=\"\"><img src=\"uploads/2023/e75042a0d0.jpg\" width=\"600\" height=\"397\" alt=\"\">\n",
+				"content_text": "Shot on Fujifilm Superia 400 using my Canon AV-1 with a 50mm f/1.4 lens.\n\n<img src=\"https://sidpatchy.micro.blog/uploads/2023/f12aeba5d5.jpg\" width=\"397\" height=\"600\" alt=\"\"><img src=\"https://sidpatchy.micro.blog/uploads/2023/e75042a0d0.jpg\" width=\"600\" height=\"397\" alt=\"\">\n",
 				"date_published": "2023-03-02T22:26:18-05:00",
 				"url": "https://www.sidpatchy.com/2023/03/02/shot-on-fujifilm.html"
 			},
