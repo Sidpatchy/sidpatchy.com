@@ -24,6 +24,149 @@
 	
 	  <div class="h-entry">
 		
+			<h1><a href="https://www.sidpatchy.com/2024/11/21/building-a-custom.html">Building a Custom Update Server for Polycom VOIP Phones</a></h1>
+		
+
+		<a href="https://www.sidpatchy.com/2024/11/21/building-a-custom.html" class="u-url"><time class="dt-published" datetime="2024-11-21 21:32:22 -0700">Nov 21, 2024</time></a>
+
+		<div class="e-content">
+			 <h1 id="introduction">Introduction</h1>
+<p>At work, we had several Polycom phones in our remote offices stop working due to our VOIP provider discontinuing TLS v1.0 without any warning. This was made worse by the fact that our VOIP provider decided they didn&rsquo;t need to host firmware files for these phones to update to a version that supports newer versions of the TLS standard&hellip; and hadn&rsquo;t been doing so for years.</p>
+<p>As a result of this, I was tasked with building out a process for applying updates to Polycom phones without utilizing the update server hosted by our VOIP provider.</p>
+<p>Finding ANY documentation on this whatsoever was effectively impossible, so I&rsquo;m making this post to help the next person who has to do this preserve their sanity.</p>
+<p>So, without further interruption to what should be a simple guide, we&rsquo;ll cover setting up an FTP server, configuring firmware files, and finally updating your phones.</p>
+<h1 id="procedure">Procedure</h1>
+<h2 id="setting-up-the-ftp-server">Setting up the FTP Server</h2>
+<p>Polycom phones require an FTP server to receive update files from. This doesn&rsquo;t have to be anything complicated. It just needs to be able to serve files.</p>
+<p>Python (jumpscare) is among the quickest ways to achieve this.</p>
+<p>First, we&rsquo;ll need to install pyftpdlib. A Python library that allows us to host a basic FTP server:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Shell" data-lang="Shell"><span style="color:#75715e"># Most environments:</span>
+pip install pyftpdlib
+
+<span style="color:#75715e"># Ubuntu 24 Server (and probably a lot of other Debian-based distros)</span>
+sudo apt install python3-pyftpdlib
+</code></pre></div><p>Now, we need to host the server. At the time of writing, Polycom phones default to using the user/password PlcmSpIp/PlcmSpIp. If this changes, update the script below.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#f92672">from</span> pyftpdlib.authorizers <span style="color:#f92672">import</span> DummyAuthorizer
+<span style="color:#f92672">from</span> pyftpdlib.handlers <span style="color:#f92672">import</span> FTPHandler
+<span style="color:#f92672">from</span> pyftpdlib.servers <span style="color:#f92672">import</span> FTPServer
+
+<span style="color:#75715e"># Create authorizer</span>
+authorizer <span style="color:#f92672">=</span> DummyAuthorizer()
+
+<span style="color:#75715e"># Anonymous user with read-only permissions</span>
+authorizer<span style="color:#f92672">.</span>add_anonymous(<span style="color:#e6db74">&#34;.&#34;</span>, perm<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;lr&#34;</span>)
+
+<span style="color:#75715e"># Add user (PlcmSpIp) with read-only permissions</span>
+authorizer<span style="color:#f92672">.</span>add_user(<span style="color:#e6db74">&#34;PlcmSpIp&#34;</span>, <span style="color:#e6db74">&#34;PlcmSpIp&#34;</span>, <span style="color:#e6db74">&#34;.&#34;</span>, perm<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;lr&#34;</span>)
+
+<span style="color:#75715e"># Create handler</span>
+handler <span style="color:#f92672">=</span> FTPHandler
+handler<span style="color:#f92672">.</span>authorizer <span style="color:#f92672">=</span> authorizer
+
+<span style="color:#75715e"># Create and start server</span>
+server <span style="color:#f92672">=</span> FTPServer((<span style="color:#e6db74">&#34;0.0.0.0&#34;</span>, <span style="color:#ae81ff">21</span>), handler)
+server<span style="color:#f92672">.</span>serve_forever()
+</code></pre></div><h2 id="various-notes-on-directory-structure">Various notes on directory structure</h2>
+<p>The remainder of this document assumes that the root/working directory for the FTP server contains the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Shell" data-lang="Shell">├── FTP
+│   ├── Polycom-UC-Software-4.0.15-rts22-release-sig-combined
+│   ├── Polycom-UC-Software-4.0.15-rts22-release-sig-split
+│   ├── Polycom-UC-Software-6.3.1-rts45-M-release-sig-combined
+│   ├── Polycom-UC-Software-6.3.1-rts45-M-release-sig-split
+│   ├── Poly_UC_Software_5_9_8_release_sig_split
+│   ├── Poly_UC_Software_5.9.8_rts63_release_sig_combined
+│   ├── README.md
+│   ├── the_liquid_chocolate_experience.xml
+│   ├── UC_Software_6_3_1_AE_release_sig_split
+│   ├── UC_Software_6_4_3_I_release_sig_split
+│   ├── UC_Software_6_4_5_release_sig_split
+│   ├── UC_Software_6_4_6_release_sig_split
+│   └── ZIP_files
+</code></pre></div><p>The various <code>Polycom</code> and <code>UC_Software</code> directories contain extracted versions of the firmware files.</p>
+<p>Visit the <a href="https://downloads.polycom.com/voice/voip/uc_sw_releases_matrix.html">Polycom Firmware Matrix</a> to locate the software packages for your specific device.</p>
+<p>The <code>ZIP_files</code> directory contains unextracted and .zip files downloaded from Polycom, largely just for reference.</p>
+<p>A quick and easy way to bulk-extract ZIP files under a Linux shell:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Shell" data-lang="Shell"><span style="color:#66d9ef">for</span> file in *.zip; <span style="color:#66d9ef">do</span>
+    dirname<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>file%.zip<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+    mkdir -p <span style="color:#e6db74">&#34;</span>$dirname<span style="color:#e6db74">&#34;</span>
+    unzip <span style="color:#e6db74">&#34;</span>$file<span style="color:#e6db74">&#34;</span> -d <span style="color:#e6db74">&#34;</span>$dirname<span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">done</span>
+</code></pre></div><hr>
+<p>Ultimately, the phone doesn&rsquo;t care about the directory structure. You can organize the directory structure however you want as the phone pulls update files down according to the XML file.</p>
+<h2 id="building-out-the-xml-file">Building out the XML file</h2>
+<p>We&rsquo;ll need to create an XML configuration file that tells the phone where to download the firmware image from. In my examples, I will be using <code>ftp://2008.obama.cc/</code> as this is what I used when testing this process for the first time.</p>
+<p>The file <code>the_liquid_chocolate_experience.xml</code> is what the phone gets pointed at to check for updates. In our case, the URL would be <code>ftp://2008.obama.cc/the_liquid_chocolate_experience.xml</code>.</p>
+<blockquote>
+<p>Predictably, the name of the name of the XML file doesn&rsquo;t matter. I just like messing up my digital footprint :)</p>
+</blockquote>
+<p>So, what is the magic sauce inside the XML file?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-XML" data-lang="XML"><span style="color:#f92672">&lt;PHONE_IMAGES&gt;</span>
+    <span style="color:#f92672">&lt;REVISION</span> <span style="color:#a6e22e">ID=</span><span style="color:#e6db74">&#34;3111-48350-001&#34;</span><span style="color:#f92672">&gt;</span>
+        <span style="color:#f92672">&lt;PHONE_IMAGE&gt;</span>
+            <span style="color:#f92672">&lt;VERSION&gt;</span>5.9.8.5760<span style="color:#f92672">&lt;/VERSION&gt;</span>
+            <span style="color:#f92672">&lt;PATH&gt;</span>ftp://2008.obama.cc/Poly_UC_Software_5_9_8_release_sig_split/3111-48350-001.sip.ld<span style="color:#f92672">&lt;/PATH&gt;</span>
+        <span style="color:#f92672">&lt;/PHONE_IMAGE&gt;</span>
+    <span style="color:#f92672">&lt;/REVISION&gt;</span>
+<span style="color:#f92672">&lt;/PHONE_IMAGES&gt;</span>
+</code></pre></div><p>This looks extremely haunted, and I admit that it is, but it&rsquo;s actually very simple, so let&rsquo;s start from the beginning:</p>
+<ul>
+<li>
+<p><code>REVISION ID={}</code> is the hardware revision that corresponds to the phone&rsquo;s part number. This can be quickly and easily obtained through the phone&rsquo;s web portal home page. In the case of the Polycom VVX 311 I&rsquo;m working with while writing this, it is <code>3111-48350-001 Rev:A</code>. So, to fill out the XML file, we just need to remove <code> Rev:A</code>.</p>
+</li>
+<li>
+<p><code>PHONE_IMAGE</code> represents an individual software version for the phone. If there are multiple software versions for a given phone, you just create another <code>&lt;PHONE_IMAGE&gt;</code> category underneath the revision for a given phone. I&rsquo;ve demonstrated what this looks like a little further down.</p>
+</li>
+<li>
+<p><code>VERSION</code> is pretty arbitrary. You can literally set it to any string as far as I can tell (<em>there doesn&rsquo;t appear to be any sort of length limit either</em>). If we want to represent the exact version number for a given update file, there is a file included in each firmware package called <code>sip.ver</code>. Open it in a text editor to view the exact version information. In this case, I am working with software version <code>5.9.8.5760</code>.</p>
+</li>
+<li>
+<p><code>PATH</code> represents the location on an FTP server that the phone can download the firmware image from. Open your extracted firmware directory and find the the relevant file for your phone&rsquo;s part number. In my case, for the Polycom VVX 311, I am looking for a file named <code>3111-48350-001.sip.ld</code>.</p>
+<ul>
+<li>Using the directory structure I described previously the path to the update file is as follows:
+<ul>
+<li><code>ftp://2008.obama.cc/Poly_UC_Software_5_9_8_release_sig_split/3111-48350-001.sip.ld</code>.</li>
+</ul>
+</li>
+<li>If you&rsquo;re confused about where the <code>3111-48350-001</code> came from, see the details for the <code>REVISION</code> field.</li>
+</ul>
+</li>
+</ul>
+<p>So, putting it all together (along with some settings for the Polycom VVX 600), we get a config file that looks something like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-XML" data-lang="XML"><span style="color:#f92672">&lt;PHONE_IMAGES&gt;</span>
+    <span style="color:#75715e">&lt;!-- Polycom VVX 311 (and 301??) --&gt;</span>
+    <span style="color:#f92672">&lt;REVISION</span> <span style="color:#a6e22e">ID=</span><span style="color:#e6db74">&#34;3111-48350-001&#34;</span><span style="color:#f92672">&gt;</span>
+        <span style="color:#f92672">&lt;PHONE_IMAGE&gt;</span>
+            <span style="color:#f92672">&lt;VERSION&gt;</span>5.9.8.5760<span style="color:#f92672">&lt;/VERSION&gt;</span>
+            <span style="color:#f92672">&lt;PATH&gt;</span>ftp://2008.obama.cc/Poly_UC_Software_5_9_8_release_sig_split/3111-48350-001.sip.ld<span style="color:#f92672">&lt;/PATH&gt;</span>
+        <span style="color:#f92672">&lt;/PHONE_IMAGE&gt;</span>
+    <span style="color:#f92672">&lt;/REVISION&gt;</span>
+
+    <span style="color:#75715e">&lt;!-- Polycom VVX 600 --&gt;</span>
+    <span style="color:#f92672">&lt;REVISION</span> <span style="color:#a6e22e">ID=</span><span style="color:#e6db74">&#34;3111-44600-001&#34;</span><span style="color:#f92672">&gt;</span>
+        <span style="color:#f92672">&lt;PHONE_IMAGE&gt;</span>
+            <span style="color:#f92672">&lt;VERSION&gt;</span>6.4.6.2453<span style="color:#f92672">&lt;/VERSION&gt;</span>
+            <span style="color:#f92672">&lt;PATH&gt;</span>ftp://2008.obama.cc/UC_Software_6_4_6_release_sig_split/3111-44600-001.sip.ld<span style="color:#f92672">&lt;/PATH&gt;</span>
+        <span style="color:#f92672">&lt;/PHONE_IMAGE&gt;</span>
+        <span style="color:#f92672">&lt;PHONE_IMAGE&gt;</span>
+            <span style="color:#f92672">&lt;VERSION&gt;</span>5.9.8.5760<span style="color:#f92672">&lt;/VERSION&gt;</span>
+            <span style="color:#f92672">&lt;PATH&gt;</span>ftp://2008.obama.cc/Poly_UC_Software_5_9_8_release_sig_split/3111-44600-001.sip.ld<span style="color:#f92672">&lt;/PATH&gt;</span>
+        <span style="color:#f92672">&lt;/PHONE_IMAGE&gt;</span>
+    <span style="color:#f92672">&lt;/REVISION&gt;</span>
+<span style="color:#f92672">&lt;/PHONE_IMAGES&gt;</span>
+</code></pre></div><h2 id="putting-it-all-together">Putting it all together</h2>
+<blockquote>
+<p>Ensure port 21 is open on your server&rsquo;s firewall so that devices can reach the FTP server.</p>
+</blockquote>
+<p>Now, simply enter the directory where you have the .XML file and execute the Python FTP server. I placed it in the parent directory of FTP server as to avoid serving the Python script:</p>
+<pre tabindex="0"><code>python ../ftpserver.py
+</code></pre><p>And finally, head to the phone&rsquo;s web console and enter the software upgrade screen (Utilities -&gt; Software Upgrade), then select custom server, and enter the FTP address to your .XML file: <code>ftp://2008.obama.cc/the_liquid_chocolate_experience.xml</code>.</p>
+<p>After this, you should see the various firmware versions you configured. Simply select one, then wait for the update to finish.</p>
+
+		</div>
+	  </div>
+	
+	  <div class="h-entry">
+		
 
 		<a href="https://www.sidpatchy.com/2024/11/20/the-pebble-is.html" class="u-url"><time class="dt-published" datetime="2024-11-20 21:25:36 -0700">Nov 20, 2024</time></a>
 
